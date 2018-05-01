@@ -32,6 +32,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private float m_Downforce = 100f;
         [SerializeField] private SpeedType m_SpeedType;
         [SerializeField] private float m_Topspeed = 200;
+        [SerializeField] private float m_Minspeed = 10;
         [SerializeField] private static int NoOfGears = 5;
         [SerializeField] private float m_RevRangeBoundary = 1f;
         [SerializeField] private float m_SlipLimit;
@@ -120,7 +121,7 @@ namespace UnityStandardAssets.Vehicles.Car
             // (this is done in retrospect - revs are not used in force/power calculations)
             CalculateGearFactor();
             var gearNumFactor = m_GearNum/(float) NoOfGears;
-            var revsRangeMin = ULerp(0f, m_RevRangeBoundary, CurveFactor(gearNumFactor));
+            var revsRangeMin = ULerp(10f, m_RevRangeBoundary, CurveFactor(gearNumFactor));
             var revsRangeMax = ULerp(m_RevRangeBoundary, 1f, gearNumFactor);
             Revs = ULerp(revsRangeMin, revsRangeMax, m_GearFactor);
         }
@@ -152,7 +153,7 @@ namespace UnityStandardAssets.Vehicles.Car
             SteerHelper();
             ApplyDrive(accel, footbrake);
             CapSpeed();
-
+            minSpeed();
             //Set the handbrake.
             //Assuming that wheels 2 and 3 are the rear wheels.
             if (handbrake > 0f)
@@ -192,6 +193,25 @@ namespace UnityStandardAssets.Vehicles.Car
             }
         }
 
+        private void minSpeed()
+        {
+            float speed = m_Rigidbody.velocity.magnitude;
+            switch (m_SpeedType)
+            {
+                case SpeedType.MPH:
+
+                    speed *= 2.23693629f;
+                    if (speed < m_Minspeed)
+                        m_Rigidbody.velocity = (m_Minspeed / 2.23693629f) * m_Rigidbody.velocity.normalized;
+                    break;
+
+                case SpeedType.KPH:
+                    speed *= 3.6f;
+                    if (speed < m_Minspeed)
+                        m_Rigidbody.velocity = (m_Minspeed / 3.6f) * m_Rigidbody.velocity.normalized;
+                    break;
+            }
+        }
 
         private void ApplyDrive(float accel, float footbrake)
         {
