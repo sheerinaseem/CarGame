@@ -5,6 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/CarGame.unity
-    guid: 6df5da7bb1021e5418375bc3a5feab56
+    path: Assets/Menu.unity
+    guid: 90154c42268de114b8196c905f42266a
+  - enabled: 1
+    path: Assets/CarGame-sound.unity
+    guid: 7a75e66001de27b44a99781c35f75e72
