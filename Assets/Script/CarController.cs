@@ -7,6 +7,7 @@ public class CarController : MonoBehaviour {
 
     public Text countText;
     public Text winText;
+    public Text gameOver;
     private int count;
     AudioSource audioSource;
     AudioClip clip;
@@ -16,6 +17,7 @@ public class CarController : MonoBehaviour {
         count = 0;
         winText.text = "";
         SetCountText();
+        gameOver.text = "";
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -38,6 +40,11 @@ public class CarController : MonoBehaviour {
             collision.collider.gameObject.SetActive(false);
             count = count + 1;
             SetCountText();
+        }else if (collision.collider.gameObject.CompareTag("Bomb"))
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            Application.LoadLevel("Game Over");
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
 
