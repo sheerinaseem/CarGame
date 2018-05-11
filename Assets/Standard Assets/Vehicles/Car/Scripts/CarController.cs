@@ -153,7 +153,7 @@ namespace UnityStandardAssets.Vehicles.Car
             SteerHelper();
             ApplyDrive(accel, footbrake);
             CapSpeed();
-            minSpeed();
+            MinSpeed();
             //Set the handbrake.
             //Assuming that wheels 2 and 3 are the rear wheels.
             if (handbrake > 0f)
@@ -193,7 +193,7 @@ namespace UnityStandardAssets.Vehicles.Car
             }
         }
 
-        private void minSpeed()
+        private void MinSpeed()
         {
             float speed = m_Rigidbody.velocity.magnitude;
             switch (m_SpeedType)

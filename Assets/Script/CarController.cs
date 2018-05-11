@@ -42,9 +42,11 @@ public class CarController : MonoBehaviour {
             SetCountText();
         }else if (collision.collider.gameObject.CompareTag("Bomb"))
         {
-#pragma warning disable CS0618 // Type or member is obsolete
-            Application.LoadLevel("Game Over");
-#pragma warning restore CS0618 // Type or member is obsolete
+            Debug.Log("Collided with bomb");
+            collision.collider.gameObject.SetActive(false);
+            gameOver.text = "Game Over";
+            Invoke("ChangeLevelGameOver", 3.0f);
+
         }
 
 
@@ -183,5 +185,12 @@ public class CarController : MonoBehaviour {
                 break;
         }
 
+    }
+
+    void ChangeLevelGameOver()
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
+        Application.LoadLevel("Game Over");
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 }

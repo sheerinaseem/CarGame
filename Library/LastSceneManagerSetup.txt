@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/CarGame-sound.unity
+- path: Assets/Level A.unity
   isLoaded: 1
   isActive: 1
